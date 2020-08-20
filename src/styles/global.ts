@@ -9,6 +9,9 @@ export default createGlobalStyle`
     --color-background: #191920;
     --color-text-white: #FFFF;
     --color-text-gray: #999;
+    --color-background-white: #FFFF;
+    --color-title-product: #333;
+    --color-button: #7159c1;
   }
 
   #root{
