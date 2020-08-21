@@ -19,7 +19,7 @@ const Header: React.FC = ({ cartSize }: any) => {
       <Cart to="/cart">
         <div>
           <strong>Meu carrinho</strong>
-          <span> {cartSize} itens</span> {/* eslint-disable-line */}
+          <span> {cartSize} itens</span>
         </div>
         <MdShoppingBasket size={36} color="#FFFF" />
       </Cart>

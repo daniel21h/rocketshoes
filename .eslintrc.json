@@ -40,6 +40,8 @@
     "react-hooks/exhaustive-deps": "warn",
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
     "import/prefer-default-export": "off",
+    "no-console": ["error", { "allow": ["tron"]}],
+    "react/jsx-one-expression-per-line": "off",
     "@typescript-eslint/naming-convention": [
       "error",
       {
