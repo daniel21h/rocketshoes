@@ -4,16 +4,9 @@ import { connect } from 'react-redux';
 
 import api from '../../services/api';
 import { formatPrice } from '../../utils/format';
+import IProductData from '../../dtos/IProductData';
 
 import { ProductList } from './styles';
-
-export interface IProductData {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-  priceFormated?: string;
-}
 
 class Home extends Component {
   state = {

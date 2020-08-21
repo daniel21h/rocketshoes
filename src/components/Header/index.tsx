@@ -7,9 +7,11 @@ import logoImg from '../../assets/images/logo.svg';
 
 import { Container, Cart } from './styles';
 
-import { IRootState } from '../../store/modules/rootReducer';
+interface IHeaderProps {
+  cartSize: number;
+}
 
-const Header: React.FC = ({ cartSize }: any) => {
+const Header: React.FC<IHeaderProps> = ({ cartSize }) => {
   return (
     <Container>
       <Link to="/">
@@ -27,6 +29,8 @@ const Header: React.FC = ({ cartSize }: any) => {
   );
 };
 
-export default connect((state: IRootState) => ({
+const mapStateToProps = (state: any) => ({
   cartSize: state.cart.length,
-}))(Header);
+});
+
+export default connect(mapStateToProps)(Header);

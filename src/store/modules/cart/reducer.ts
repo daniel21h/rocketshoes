@@ -1,10 +1,4 @@
-interface IProductData {
-  id: string;
-  title: string;
-  image: string;
-  price: number;
-  priceFormated: string;
-}
+import IProductData from '../../../dtos/IProductData';
 
 interface IAction {
   type: string;
@@ -14,7 +8,7 @@ interface IAction {
 export default function cart(state: IProductData[] = [], action: IAction) {
   switch (action.type) {
     case 'ADD_TO_CART':
-      return [...state, action.product];
+      return [...state, { ...action.product, amount: 1 }];
     default:
       return state;
   }
