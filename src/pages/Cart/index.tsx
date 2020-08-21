@@ -13,9 +13,10 @@ import { Container, ProductTable, Total } from './styles';
 
 interface ICartProps {
   cart: IProductData[];
+  dispatch: any;
 }
 
-const Cart: React.FC<ICartProps> = ({ cart }) => {
+const Cart: React.FC<ICartProps> = ({ cart, dispatch }) => {
   return (
     <Container>
       <ProductTable>
@@ -54,7 +55,12 @@ const Cart: React.FC<ICartProps> = ({ cart }) => {
                 <strong>R$ 258,80</strong>
               </td>
               <td>
-                <button type="button">
+                <button
+                  type="button"
+                  onClick={() =>
+                    dispatch({ type: 'REMOVE_FROM_CART', id: product.id })
+                  }
+                >
                   <MdDelete color="#7159c1" size={21} />
                 </button>
               </td>
