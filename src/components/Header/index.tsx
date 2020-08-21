@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdShoppingBasket } from 'react-icons/md';
+import { connect } from 'react-redux';
 
 import logoImg from '../../assets/images/logo.svg';
 
 import { Container, Cart } from './styles';
 
-const Header: React.FC = () => {
+import { IRootState } from '../../store/modules/rootReducer';
+
+const Header: React.FC = ({ cartSize }: any) => {
   return (
     <Container>
       <Link to="/">
@@ -16,7 +19,7 @@ const Header: React.FC = () => {
       <Cart to="/cart">
         <div>
           <strong>Meu carrinho</strong>
-          <span> 3 itens</span>
+          <span> {cartSize} itens</span> {/* eslint-disable-line */}
         </div>
         <MdShoppingBasket size={36} color="#FFFF" />
       </Cart>
@@ -24,4 +27,6 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default connect((state: IRootState) => ({
+  cartSize: state.cart.length,
+}))(Header);

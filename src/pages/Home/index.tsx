@@ -7,7 +7,7 @@ import { formatPrice } from '../../utils/format';
 
 import { ProductList } from './styles';
 
-interface IProductData {
+export interface IProductData {
   id: number;
   title: string;
   price: number;
@@ -31,6 +31,15 @@ class Home extends Component {
     });
   }
 
+  handleAddProduct = (product: IProductData) => {
+    const { dispatch }: any = this.props;
+
+    dispatch({
+      type: 'ADD_TO_CART',
+      product,
+    });
+  };
+
   render() {
     const { products } = this.state;
 
@@ -42,7 +51,10 @@ class Home extends Component {
             <strong>{product.title}</strong>
             <span>{product.priceFormated}</span>
 
-            <button type="button">
+            <button
+              type="button"
+              onClick={() => this.handleAddProduct(product)}
+            >
               <div>
                 <MdAddShoppingCart size={16} color="#FFFF" />
                 {' 3'}

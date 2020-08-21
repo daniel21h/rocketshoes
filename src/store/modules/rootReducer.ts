@@ -2,6 +2,10 @@ import { combineReducers } from 'redux';
 
 import cart from './cart/reducer';
 
-export default combineReducers({
+const rootReducer = combineReducers({
   cart,
 });
+
+export type IRootState = ReturnType<typeof rootReducer>;
+
+export default rootReducer;
