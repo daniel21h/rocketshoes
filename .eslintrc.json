@@ -24,6 +24,7 @@
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
   "rules": {
+    "react/state-in-constructor": "off",
     "jsx-a11y/control-has-associated-label": "off",
     "import/no-extraneous-dependencies": "off",
     "camelcase": "off",
