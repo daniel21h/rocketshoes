@@ -5,8 +5,6 @@ import {
   MdDelete,
 } from 'react-icons/md';
 
-import tenis1Img from '../../assets/images/tenis1.jpg';
-
 import { Container, ProductTable, Total } from './styles';
 
 const Cart: React.FC = () => {
@@ -26,7 +24,10 @@ const Cart: React.FC = () => {
         <tbody>
           <tr>
             <td>
-              <img src={tenis1Img} alt="Tênis" />
+              <img
+                src="https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg"
+                alt="Tênis"
+              />
             </td>
             <td>
               <strong>Tênis muito massa</strong>
@@ -52,66 +53,6 @@ const Cart: React.FC = () => {
               </button>
             </td>
           </tr>
-          {/*  */}
-          <tr>
-            <td>
-              <img src={tenis1Img} alt="Tênis" />
-            </td>
-            <td>
-              <strong>Tênis muito massa</strong>
-              <span>R$ 129,00</span>
-            </td>
-            <td>
-              <div>
-                <button type="button">
-                  <MdRemoveCircleOutline color="#7159c1" size={21} />
-                </button>
-                <input type="number" readOnly value={1} />
-                <button type="button">
-                  <MdAddCircleOutline color="#7159c1" size={21} />
-                </button>
-              </div>
-            </td>
-            <td>
-              <strong>R$ 258,80</strong>
-            </td>
-            <td>
-              <button type="button">
-                <MdDelete color="#7159c1" size={21} />
-              </button>
-            </td>
-          </tr>
-          {/*  */}
-          {/*  */}
-          <tr>
-            <td>
-              <img src={tenis1Img} alt="Tênis" />
-            </td>
-            <td>
-              <strong>Tênis muito massa</strong>
-              <span>R$ 129,00</span>
-            </td>
-            <td>
-              <div>
-                <button type="button">
-                  <MdRemoveCircleOutline color="#7159c1" size={21} />
-                </button>
-                <input type="number" readOnly value={1} />
-                <button type="button">
-                  <MdAddCircleOutline color="#7159c1" size={21} />
-                </button>
-              </div>
-            </td>
-            <td>
-              <strong>R$ 258,80</strong>
-            </td>
-            <td>
-              <button type="button">
-                <MdDelete color="#7159c1" size={21} />
-              </button>
-            </td>
-          </tr>
-          {/*  */}
         </tbody>
       </ProductTable>
 
