@@ -5,4 +5,5 @@ export default interface IProductData {
   image: string;
   priceFormated?: string;
   amount?: number;
+  subtotal?: string;
 }

@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 
 import { IRootState } from '../../store/modules/rootReducer';
 import * as CartActions from '../../store/modules/cart/actions';
+import { formatPrice } from '../../utils/format';
 import IProductData from '../../dtos/IProductData';
 
 import { Container, ProductTable, Total } from './styles';
@@ -17,9 +18,15 @@ interface ICartProps {
   cart: IProductData[];
   removeFromCart(id: number): any;
   updateAmount(id: number, amount: number | undefined): any;
+  total: string;
 }
 
-const Cart: React.FC<ICartProps> = ({ cart, removeFromCart, updateAmount }) => {
+const Cart: React.FC<ICartProps> = ({
+  cart,
+  removeFromCart,
+  updateAmount,
+  total,
+}) => {
   function increment(product: IProductData): void {
     updateAmount(product.id, product.amount! + 1);
   }
@@ -63,7 +70,7 @@ const Cart: React.FC<ICartProps> = ({ cart, removeFromCart, updateAmount }) => {
                 </div>
               </td>
               <td>
-                <strong>R$ 258,80</strong>
+                <strong>{product.subtotal}</strong>
               </td>
               <td>
                 <button
@@ -83,7 +90,7 @@ const Cart: React.FC<ICartProps> = ({ cart, removeFromCart, updateAmount }) => {
 
         <Total>
           <span>TOTAL</span>
-          <strong>R$ 1920,28</strong>
+          <strong>{total}</strong>
         </Total>
       </footer>
     </Container>
@@ -91,7 +98,18 @@ const Cart: React.FC<ICartProps> = ({ cart, removeFromCart, updateAmount }) => {
 };
 
 const mapStateToProps = (state: IRootState) => ({
-  cart: state.cart,
+  cart: state.cart.map((product: IProductData) => {
+    return {
+      ...product,
+      subtotal: formatPrice(product.amount! * product.price),
+    };
+  }),
+
+  total: formatPrice(
+    state.cart.reduce((total, product) => {
+      return total + product.price * product.amount!;
+    }, 0),
+  ),
 });
 
 const mapDispatchToProps = (dispatch: any) => {
