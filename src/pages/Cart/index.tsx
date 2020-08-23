@@ -5,18 +5,20 @@ import {
   MdDelete,
 } from 'react-icons/md';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import { IRootState } from '../../store/modules/rootReducer';
+import * as CartActions from '../../store/modules/cart/actions';
 import IProductData from '../../dtos/IProductData';
 
 import { Container, ProductTable, Total } from './styles';
 
 interface ICartProps {
   cart: IProductData[];
-  dispatch: any;
+  removeFromCart(id: number): any;
 }
 
-const Cart: React.FC<ICartProps> = ({ cart, dispatch }) => {
+const Cart: React.FC<ICartProps> = ({ cart, removeFromCart }) => {
   return (
     <Container>
       <ProductTable>
@@ -57,9 +59,7 @@ const Cart: React.FC<ICartProps> = ({ cart, dispatch }) => {
               <td>
                 <button
                   type="button"
-                  onClick={() =>
-                    dispatch({ type: 'REMOVE_FROM_CART', id: product.id })
-                  }
+                  onClick={() => removeFromCart(product.id)}
                 >
                   <MdDelete color="#7159c1" size={21} />
                 </button>
@@ -85,4 +85,8 @@ const mapStateToProps = (state: IRootState) => ({
   cart: state.cart,
 });
 
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = (dispatch: any) => {
+  return bindActionCreators(CartActions, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
