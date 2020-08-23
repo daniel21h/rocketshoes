@@ -6,6 +6,7 @@ interface IAction {
   id?: number;
   type: string;
   product: IProductData;
+  amount: number;
 }
 
 export default function cart(state: IProductData[] = [], action: IAction) {
@@ -28,6 +29,19 @@ export default function cart(state: IProductData[] = [], action: IAction) {
           draft.splice(productIndex, 1);
         }
       });
+    case '@cart/UPDATE_AMOUNT': {
+      if (action.amount <= 0) {
+        return state;
+      }
+
+      return produce(state, (draft) => {
+        const productIndex = draft.findIndex((p) => p.id === action.id);
+
+        if (productIndex >= 0) {
+          draft[productIndex].amount = action.amount;
+        }
+      });
+    }
     default:
       return state;
   }

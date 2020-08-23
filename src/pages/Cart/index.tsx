@@ -16,9 +16,18 @@ import { Container, ProductTable, Total } from './styles';
 interface ICartProps {
   cart: IProductData[];
   removeFromCart(id: number): any;
+  updateAmount(id: number, amount: number | undefined): any;
 }
 
-const Cart: React.FC<ICartProps> = ({ cart, removeFromCart }) => {
+const Cart: React.FC<ICartProps> = ({ cart, removeFromCart, updateAmount }) => {
+  function increment(product: IProductData): void {
+    updateAmount(product.id, product.amount! + 1);
+  }
+
+  function decrement(product: IProductData): void {
+    updateAmount(product.id, product.amount! - 1);
+  }
+
   return (
     <Container>
       <ProductTable>
@@ -44,11 +53,11 @@ const Cart: React.FC<ICartProps> = ({ cart, removeFromCart }) => {
               </td>
               <td>
                 <div>
-                  <button type="button">
+                  <button type="button" onClick={() => decrement(product)}>
                     <MdRemoveCircleOutline color="#7159c1" size={21} />
                   </button>
                   <input type="number" readOnly value={product.amount} />
-                  <button type="button">
+                  <button type="button" onClick={() => increment(product)}>
                     <MdAddCircleOutline color="#7159c1" size={21} />
                   </button>
                 </div>
