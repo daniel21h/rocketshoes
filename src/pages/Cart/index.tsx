@@ -17,7 +17,7 @@ import { Container, ProductTable, Total } from './styles';
 interface ICartProps {
   cart: IProductData[];
   removeFromCart(id: number): any;
-  updateAmount(id: number, amount: number | undefined): any;
+  updateAmount(id: number, amount: number): any;
   total: string;
 }
 

@@ -45,6 +45,7 @@
     "react/jsx-curly-newline": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "no-param-reassign": "off",
+    "no-return-assign": "off",
     "@typescript-eslint/naming-convention": [
       "error",
       {

@@ -6,11 +6,20 @@ import { bindActionCreators } from 'redux';
 import api from '../../services/api';
 import { formatPrice } from '../../utils/format';
 import IProductData from '../../dtos/IProductData';
+import { IRootState } from '../../store/modules/rootReducer';
 import * as CartActions from '../../store/modules/cart/actions';
 
 import { ProductList } from './styles';
 
-class Home extends Component {
+interface IHomeProps {
+  amount: any;
+}
+
+interface IHomeState {
+  products: Array<IProductData>;
+}
+
+class Home extends Component<IHomeProps, IHomeState> {
   state = {
     products: [],
   };
@@ -34,6 +43,7 @@ class Home extends Component {
 
   render() {
     const { products } = this.state;
+    const { amount } = this.props;
 
     return (
       <ProductList>
@@ -49,7 +59,7 @@ class Home extends Component {
             >
               <div>
                 <MdAddShoppingCart size={16} color="#FFFF" />
-                {' 3'}
+                {amount[product.id] || 0}
               </div>
 
               <span>ADICIONAR AO CARRINHO</span>
@@ -61,8 +71,18 @@ class Home extends Component {
   }
 }
 
+const mapStateToProps = (state: IRootState) => {
+  return {
+    amount: state.cart.reduce((amount: any, product: IProductData) => {
+      amount[product.id] = product.amount;
+
+      return amount;
+    }, {}),
+  };
+};
+
 const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(CartActions, dispatch);
 };
 
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
