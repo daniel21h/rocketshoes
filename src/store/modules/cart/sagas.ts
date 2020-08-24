@@ -3,11 +3,16 @@ import { toast } from 'react-toastify';
 
 import { formatPrice } from '../../../utils/format';
 import api from '../../../services/api';
-import { addToCartSuccess, updateAmount } from './actions';
+import { addToCartSuccess, updateAmountSuccess } from './actions';
 import IProductData from '../../../dtos/IProductData';
 
 interface IAddToCartData {
   id: number;
+}
+
+interface IUpdateAmount {
+  id: number;
+  amount: number;
 }
 
 function* addToCart({ id }: IAddToCartData) {
@@ -28,7 +33,7 @@ function* addToCart({ id }: IAddToCartData) {
   }
 
   if (productExist) {
-    yield put(updateAmount(id, amount));
+    yield put(updateAmountSuccess(id, amount));
   } else {
     const response = yield call(api.get, `/products/${id}`);
 
@@ -42,4 +47,21 @@ function* addToCart({ id }: IAddToCartData) {
   }
 }
 
-export default all([takeLatest<string, any>('@cart/ADD_REQUEST', addToCart)]);
+function* updateAmount({ id, amount }: IUpdateAmount) {
+  if (amount <= 0) return;
+
+  const stock = yield call(api.get, `stock/${id}`);
+  const stockAmount = stock.data.amount;
+
+  if (amount > stockAmount) {
+    toast.warn('Quantidade solicitada fora de estoque nesse momento.');
+    return;
+  }
+
+  yield put(updateAmountSuccess(id, amount));
+}
+
+export default all([
+  takeLatest<string, any>('@cart/ADD_REQUEST', addToCart),
+  takeLatest<string, any>('@cart/UPDATE_AMOUNT_REQUEST', updateAmount),
+]);

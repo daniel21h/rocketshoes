@@ -17,22 +17,22 @@ import { Container, ProductTable, Total } from './styles';
 interface ICartProps {
   cart: IProductData[];
   removeFromCart(id: number): any;
-  updateAmount(id: number, amount: number): any;
+  updateAmountRequest(id: number, amount: number): any;
   total: string;
 }
 
 const Cart: React.FC<ICartProps> = ({
   cart,
   removeFromCart,
-  updateAmount,
+  updateAmountRequest,
   total,
 }) => {
   function increment(product: IProductData): void {
-    updateAmount(product.id, product.amount! + 1);
+    updateAmountRequest(product.id, product.amount! + 1);
   }
 
   function decrement(product: IProductData): void {
-    updateAmount(product.id, product.amount! - 1);
+    updateAmountRequest(product.id, product.amount! - 1);
   }
 
   return (
