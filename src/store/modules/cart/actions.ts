@@ -1,8 +1,15 @@
 import IProductData from '../../../dtos/IProductData';
 
-function addToCart(product: IProductData) {
+function addToCartRequest(id: number) {
   return {
-    type: '@cart/ADD',
+    type: '@cart/ADD_REQUEST',
+    id,
+  };
+}
+
+function addToCartSuccess(product: IProductData) {
+  return {
+    type: '@cart/ADD_SUCCESS',
     product,
   };
 }
@@ -22,4 +29,4 @@ function updateAmount(id: number, amount: number) {
   };
 }
 
-export { addToCart, removeFromCart, updateAmount };
+export { addToCartRequest, addToCartSuccess, removeFromCart, updateAmount };
